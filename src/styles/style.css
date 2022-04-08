@@ -19,6 +19,7 @@ body {
   background: #fff;
   border-radius: 20px;
   overflow: hidden;
+  margin: 30px auto;
 }
 .bonus__logo {
   background: #143e41;
@@ -56,6 +57,7 @@ body {
 .bonus__welcome {
   position: relative;
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
   text-align: center;
@@ -109,7 +111,7 @@ body {
   content: '';
   position: absolute;
   width: 1px;
-  right: -45px;
+  right: -40px;
   height: 80%;
   background: rgba(0, 0, 0, 0.15);
 }
@@ -130,7 +132,7 @@ body {
 }
 .rating {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 10px 0px;
 }
 
@@ -198,11 +200,141 @@ body {
 .rating polygon.active {
   fill: #fd9904;
 }
-@media screen and (max-width: 280px) {
+@media screen and (max-width: 1750px) {
+  .bonus__get {
+    margin: 0 30px;
+  }
+  .bonus__getBonus {
+    margin-left: 20px;
+  }
+  .bonus__get-button {
+    width: 200px;
+  }
+  .bonus__list {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 1440px) {
+  .bonus__list {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .bonus__list {
+    width: 95%;
+  }
+
+  .bonus__get-rate {
+    font-size: 30px;
+  }
+  .bonus__get-button img {
+    display: none;
+  }
+  .bonus__welcome-title,
+  .bonus__welcome-descr,
+  .bonus__rate-title,
+  .bonus__rate-rated,
+  .bonus__get-link {
+    font-size: 14px;
+  }
+  .bonus__get-button {
+    font-size: 16px;
+  }
+  .bonus__welcome-licence {
+    font-size: 8px;
+  }
+  .bonus__get-button {
+    width: 130px;
+  }
+}
+@media screen and (max-width: 900px) {
   .bonus__list {
     flex-wrap: wrap;
-    justify-content: start;
+    justify-content: space-between;
+    width: 80%;
+    padding: 10px;
+  }
+  .bonus__get {
+    margin: 0 100px 0 0;
+  }
+
+  .bonus__logo {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  .bonus__rate::after,
+  .bonus__welcome::after {
+    display: none;
+  }
+  .bonus__welcome {
+    width: auto;
+    margin: 0 45px 0 0;
+  }
+  .bonus__rate {
+    margin: 10px 0 0 60px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .bonus__list {
     width: 90%;
+  }
+}
+@media screen and (max-width: 700px) {
+  .bonus__welcome {
+    margin-right: 30px;
+  }
+  .bonus__get {
+    margin-right: 30px;
+  }
+  .bonus__welcome-descr {
+    width: 150px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .bonus__logo {
+    width: 200px;
+  }
+  .bonus__logo-logo {
+    width: 150px;
+  }
+  .bonus__logo-voice {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 0;
+  }
+  .bonus__rate {
+    margin: 10px 0 0 30px;
+  }
+  .bonus__welcome {
+    margin-right: 10px;
+  }
+  .bonus__get {
+    margin-right: 10px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .bonus__rate {
+    margin: 0px 0 0 10px;
+  }
+  .bonus__getBonus {
+    margin-left: 10px;
+  }
+  .bonus__get {
+    margin-right: 0;
+  }
+  .bonus__welcome {
+    margin-right: 0;
+  }
+  .bonus__welcome-descr {
+    width: 100px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .bonus__list {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 90%;
+    padding: 0;
   }
   .bonus__logo {
     margin: 10px;
@@ -214,6 +346,7 @@ body {
     width: 95px;
     margin: 0 8px;
   }
+
   .bonus__logo-voice {
     font-weight: 700;
     font-size: 6px;
@@ -230,6 +363,7 @@ body {
   .bonus__welcome {
     width: 110px;
     margin: 0;
+    margin-right: 10px;
   }
   .bonus__welcome-title {
     text-align: left;
@@ -247,7 +381,7 @@ body {
     font-size: 11px;
     line-height: 15px;
     margin-top: 3px;
-
+    width: 100px;
     color: #000000;
   }
   .bonus__welcome::after,
@@ -268,18 +402,22 @@ body {
     font-size: 12px;
     line-height: 16px;
   }
+  .bonus__list {
+    position: relative;
+  }
   .bonus__get {
     margin: 0;
   }
   .bonus__get-rate {
-    display: none;
+    position: absolute;
+    left: 110px;
+    bottom: -7px;
+    font-size: 20px;
   }
-  .bonus__getBonus {
-    margin: 0;
-  }
+
   .bonus__get-button {
-    margin-left: 10px;
-    width: 110px;
+    margin-right: 10px;
+    width: 90px;
     height: 40px;
   }
 }

@@ -17,10 +17,9 @@ const fetchId = function (id) {
     .then(json => {
       console.log(json);
     });
-  console.log(1);
 };
 
-function renderBonusList(users) {
+const renderBonusList = users => {
   const markup = users
     .map(user => {
       return `
@@ -29,7 +28,7 @@ function renderBonusList(users) {
       <a class='bonus__logo-voice' href='#!'>
         <img src="https://i.ibb.co/RHj3DWR/voice.png" alt='voice' />OUR TOP CHOICE
       </a>
-      <img class='bonus__logo-logo' src="https://i.ibb.co/b3FDr4W/logo.png" alt='logo' onclick='fetchId(${user.id})'/>
+      <img class='bonus__logo-logo' src="https://i.ibb.co/b3FDr4W/logo.png" alt='logo' id="${user.id}"/>
     </li>
     <li class='bonus__welcome'>
       <p class='bonus__welcome-title'>${user.bonusName}</p>
@@ -57,34 +56,41 @@ function renderBonusList(users) {
     })
     .join('');
   bonusList.innerHTML = markup;
-}
-class Rating {
-  constructor(dom) {
-    dom.innerHTML = '<svg width="110" height="20"></svg>';
-    this.svg = dom.querySelector('svg');
-    for (let i = 0; i < 5; i++)
-      this.svg.innerHTML += `<polygon data-value="${i + 1}"
-             transform="translate(${i * 22},0)" 
-             points="10,1 4,19.8 19,7.8 1,7.8 16,19.8">`;
-    this.svg.onclick = e => this.change(e);
-    this.render();
-  }
 
-  change(e) {
-    let value = e.target.dataset.value;
-    value && (this.svg.parentNode.dataset.value = value);
-    this.render();
-  }
-
-  render() {
-    this.svg.querySelectorAll('polygon').forEach(star => {
-      let on = +this.svg.parentNode.dataset.value >= +star.dataset.value;
-      star.classList.toggle('active', on);
+  for (let i = 0; i < users.length; i++) {
+    document.getElementById(users[i].id).addEventListener('click', function () {
+      fetchId(users[i].id);
     });
   }
-}
 
-document.querySelectorAll('.rating').forEach(dom => new Rating(dom));
+  class Rating {
+    constructor(dom) {
+      dom.innerHTML = '<svg width="110" height="20"></svg>';
+      this.svg = dom.querySelector('svg');
+      for (let i = 0; i < 5; i++)
+        this.svg.innerHTML += `<polygon data-value="${i + 1}"
+               transform="translate(${i * 22},0)" 
+               points="10,1 4,19.8 19,7.8 1,7.8 16,19.8">`;
+      this.svg.onclick = e => this.change(e);
+      this.render();
+    }
+
+    change(e) {
+      let value = e.target.dataset.value;
+      value && (this.svg.parentNode.dataset.value = value);
+      this.render();
+    }
+
+    render() {
+      this.svg.querySelectorAll('polygon').forEach(star => {
+        let on = +this.svg.parentNode.dataset.value >= +star.dataset.value;
+        star.classList.toggle('active', on);
+      });
+    }
+  }
+
+  document.querySelectorAll('.rating').forEach(dom => new Rating(dom));
+};
 
 // const fetchUsersBtn = document.querySelector('.btn');
 // const userList = document.querySelector('.user-list');
@@ -115,15 +121,4 @@ document.querySelectorAll('.rating').forEach(dom => new Rating(dom));
 //     })
 //     .join('');
 //   userList.innerHTML = markup;
-// }
-
-// function getIdCard(idCard) {
-//   console.log(idCard);
-//   return idCard;
-// }
-
-// if (img) {
-//   img.addEventListener('click', function (target) {
-//     console.log(target);
-//   });
 // }
