@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "deposit": "Deposit £10",
+    "description": "Get up to 500 Free Spins",
+    "rate": "9.9",
+    "imageVoice": "https://i.ibb.co/RHj3DWR/voice.png",
+    "imageLogo": "https://i.ibb.co/b3FDr4W/logo.png",
+    "imageFire": "https://i.ibb.co/C9xw45X/fire.png"
+  },
+  {
+    "id": "2",
+    "deposit": "Up to £25",
+    "description": "New Player Bonus",
+    "rate": "9.7",
+    "imageVoice": "https://i.ibb.co/RHj3DWR/voice.png",
+    "imageLogo": "https://i.ibb.co/b3FDr4W/logo.png",
+    "imageFire": "https://i.ibb.co/C9xw45X/fire.png"
+  }
+]
