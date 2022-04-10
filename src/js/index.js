@@ -1,4 +1,7 @@
 const bonusList = document.querySelector('.getBonus');
+const modal = document.querySelector('.modal');
+
+console.log();
 
 function fetchBonus() {
   fetch('http://localhost:8082/api/v1/cards')
@@ -13,10 +16,59 @@ fetchBonus();
 
 const fetchId = function (id) {
   fetch('http://localhost:8082/api/v1/' + id)
-    .then(response => response.json())
-    .then(json => {
-      console.log(json);
+    .then(response => {
+      response.json().then(user => {
+        console.log();
+        renderStatsList(user.description, user.datetimeCreate);
+      });
+    })
+    .catch(arguments => {
+      console.log(arguments);
     });
+};
+const fetchBonusId = function (id) {
+  fetch('http://localhost:8082/api/v1/' + id)
+    .then(response => {
+      response.json().then(user => {
+        console.log();
+        renderBonusBtnList(user.description, user.datetimeCreate);
+      });
+    })
+    .catch(arguments => {
+      console.log(arguments);
+    });
+};
+
+const renderStatsList = (description, date) => {
+  return (modal.innerHTML = `
+      <ul  class="modal-content">
+        <li class="modal-header">
+        <h2>${description}</h2>
+        </li>
+        <li class="modal-body">${date}</li>
+      </ul>`);
+};
+const renderBonusBtnList = (description, name) => {
+  return (modal.innerHTML = `
+      <ul  class="modal-content">
+        <li class="modal-header">
+        <h2>Get Bonus</h2>
+        </li>
+        <li class="modal-body">
+        <form id="form">
+        <span class="bonusBtn__span"><b>Edit :</b> ${name}</span>
+        <input class="bonusBtn__input"type="text" name="uname" value="${name}"><br>
+        <span class="bonusBtn__span"><b>Edit :</b> ${description}</span>
+        <input class="bonusBtn__input"type="text" name="uname" value="${description}"><br>
+        <input class="bonus__get-button" type="submit">
+    </form></li>
+      </ul>`);
+};
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
 };
 
 const renderBonusList = users => {
@@ -45,7 +97,7 @@ const renderBonusList = users => {
     <li class='bonus__get'>
       <p class='bonus__get-rate'>9.9</p>
       <div class='bonus__getBonus'>
-        <button class='bonus__get-button' type='button'>
+        <button class="bonus__get-button"id="${user.description}" type='button'>
           Get Bonus
           <img src="https://i.ibb.co/C9xw45X/fire.png" alt='fire' />
         </button>
@@ -55,70 +107,49 @@ const renderBonusList = users => {
     </ul>`;
     })
     .join('');
+
   bonusList.innerHTML = markup;
 
   for (let i = 0; i < users.length; i++) {
-    document.getElementById(users[i].id).addEventListener('click', function () {
-      fetchId(users[i].id);
+    document.getElementById(users[i].description).addEventListener('click', function () {
+      fetchBonusId(users[i].id);
+      modal.style.display = 'block';
     });
   }
+  console.log(users.length);
+  for (let i = 0; i < users.length; i++) {
+    document.getElementById(users[i].id).addEventListener('click', function () {
+      fetchId(users[i].id);
 
-  class Rating {
-    constructor(dom) {
-      dom.innerHTML = '<svg width="110" height="20"></svg>';
-      this.svg = dom.querySelector('svg');
-      for (let i = 0; i < 5; i++)
-        this.svg.innerHTML += `<polygon data-value="${i + 1}"
-               transform="translate(${i * 22},0)" 
-               points="10,1 4,19.8 19,7.8 1,7.8 16,19.8">`;
-      this.svg.onclick = e => this.change(e);
-      this.render();
-    }
-
-    change(e) {
-      let value = e.target.dataset.value;
-      value && (this.svg.parentNode.dataset.value = value);
-      this.render();
-    }
-
-    render() {
-      this.svg.querySelectorAll('polygon').forEach(star => {
-        let on = +this.svg.parentNode.dataset.value >= +star.dataset.value;
-        star.classList.toggle('active', on);
-      });
-    }
+      modal.style.display = 'block';
+    });
   }
 
   document.querySelectorAll('.rating').forEach(dom => new Rating(dom));
 };
 
-// const fetchUsersBtn = document.querySelector('.btn');
-// const userList = document.querySelector('.user-list');
+class Rating {
+  constructor(dom) {
+    dom.innerHTML = '<svg width="110" height="20"></svg>';
+    this.svg = dom.querySelector('svg');
+    for (let i = 0; i < 5; i++)
+      this.svg.innerHTML += `<polygon data-value="${i + 1}"
+             transform="translate(${i * 22},0)" 
+             points="10,1 4,19.8 19,7.8 1,7.8 16,19.8">`;
+    this.svg.onclick = e => this.change(e);
+    this.render();
+  }
 
-// fetchUsersBtn.addEventListener('click', () => {
-//   fetchUsers()
-//     .then(users => renderUserList(users))
-//     .catch(error => console.log(error));
-// });
+  change(e) {
+    let value = e.target.dataset.value;
+    value && (this.svg.parentNode.dataset.value = value);
+    this.render();
+  }
 
-// function fetchUsers() {
-//   return fetch('http://localhost:8082/api/v1/cards').then(response => {
-//     if (!response.ok) {
-//       throw new Error(response.status);
-//     }
-//     return response.json();
-//   });
-// }
-
-// function renderUserList(users) {
-//   const markup = users
-//     .map(user => {
-//       return `<li>
-//           <p><b>bonusName</b>: ${user.bonusName}</p>
-//           <p><b>description</b>: ${user.description}</p>
-//           <p><b>datetimeCreate</b>: ${user.datetimeCreate}</p>
-//         </li>`;
-//     })
-//     .join('');
-//   userList.innerHTML = markup;
-// }
+  render() {
+    this.svg.querySelectorAll('polygon').forEach(star => {
+      let on = +this.svg.parentNode.dataset.value >= +star.dataset.value;
+      star.classList.toggle('active', on);
+    });
+  }
+}
