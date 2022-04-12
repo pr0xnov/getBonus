@@ -264,7 +264,6 @@ body {
     display: none;
   }
   .bonus__welcome {
-    width: auto;
     margin: 0 45px 0 0;
   }
   .bonus__rate {
@@ -279,6 +278,7 @@ body {
 @media screen and (max-width: 700px) {
   .bonus__welcome {
     margin-right: 30px;
+    width: auto;
   }
   .bonus__get {
     margin-right: 30px;
@@ -439,6 +439,8 @@ body {
   margin: auto;
   padding: 0;
   border: 1px solid #143e41;
+  border-radius: 20px;
+  overflow: hidden;
   width: 30%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
@@ -448,8 +450,14 @@ body {
 }
 .bonusBtn__input {
   height: 60px;
-  width: 300px;
+  width: 315px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  color: rgb(180, 180, 180);
   margin-bottom: 20px;
+}
+.bonusBtn__input:focus {
+  color: #000;
 }
 .bonusBtn__input {
   padding-left: 5px;
@@ -480,20 +488,6 @@ body {
   }
 }
 
-.close {
-  color: white;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 .modal-header {
   text-align: center;
   padding: 10px;
@@ -502,6 +496,16 @@ body {
 }
 
 .modal-body {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   padding: 15px;
+}
+.modal__getbonus {
+  position: relative;
+  padding-bottom: 70px;
+}
+.bonus__get-button-submit {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
