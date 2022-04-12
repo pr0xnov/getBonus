@@ -18,9 +18,9 @@ fetchBonus();
 const fetchId = id => {
   fetch('http://localhost:8082/api/v1/' + id)
     .then(response => {
-      response.json().then(user => {
+      response.json().then(card => {
         console.log();
-        renderStatsList(user.description, user.datetimeCreate.slice(0, 19));
+        renderStatsList(card.description, card.datetimeCreate.slice(0, 19));
       });
     })
     .catch(arguments => {
@@ -118,22 +118,22 @@ window.onclick = function (event) {
   }
 };
 
-const renderBonusList = users => {
-  cardsLength = users.length;
-  const markup = users
-    .map(user => {
+const renderBonusList = cards => {
+  cardsLength = cards.length;
+  const markup = cards
+    .map(card => {
       return `
       <ul class="bonus__list">
       <li class='bonus__logo'>
       <a class='bonus__logo-voice' href='#!'>
         <img src="https://i.ibb.co/RHj3DWR/voice.png" alt='voice' />OUR TOP CHOICE
       </a>
-      <img class='bonus__logo-logo' src="https://i.ibb.co/b3FDr4W/logo.png" alt='logo' id="${user.id}"/>
+      <img class='bonus__logo-logo' src="https://i.ibb.co/b3FDr4W/logo.png" alt='logo' id="${card.id}"/>
     </li>
     <li class='bonus__welcome'>
-      <p class='bonus__welcome-title'>${user.bonusName}</p>
+      <p class='bonus__welcome-title'>${card.bonusName}</p>
       <p class='bonus__welcome-descr'>
-        ${user.description}
+        ${card.description}
       </p>
       <p class='bonus__welcome-licence'>18+. Play Safe. Opt in required.</p>
     </li>
@@ -145,7 +145,7 @@ const renderBonusList = users => {
     <li class='bonus__get'>
       <p class='bonus__get-rate'>9.9</p>
       <div class='bonus__getBonus'>
-        <button class="bonus__get-button" id="${user.description}" type='button'>
+        <button class="bonus__get-button" id="${card.description}" type='button'>
           Get Bonus
           <img src="https://i.ibb.co/C9xw45X/fire.png" alt='fire' />
         </button>
@@ -158,16 +158,16 @@ const renderBonusList = users => {
 
   bonusList.innerHTML = markup;
 
-  for (let i = 0; i < users.length; i++) {
-    document.getElementById(users[i].description).addEventListener('click', function () {
-      fetchBonusId(users[i].id);
+  for (let i = 0; i < cards.length; i++) {
+    document.getElementById(cards[i].description).addEventListener('click', function () {
+      fetchBonusId(cards[i].id);
       modal.style.display = 'block';
     });
   }
 
-  for (let i = 0; i < users.length; i++) {
-    document.getElementById(users[i].id).addEventListener('click', function () {
-      fetchId(users[i].id);
+  for (let i = 0; i < cards.length; i++) {
+    document.getElementById(cards[i].id).addEventListener('click', function () {
+      fetchId(cards[i].id);
       modal.style.display = 'block';
     });
   }
